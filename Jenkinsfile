@@ -17,12 +17,7 @@ pipeline {
                 sh 'npm install'
             }
         }
-
-        stage('Run App') {
-            steps {
-                sh 'nohup node app.js > app.log 2>&1 &'
-            }
-        }
+   
         stage('Run App') {
 	    steps {
 		sh '''
