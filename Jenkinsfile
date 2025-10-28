@@ -23,6 +23,23 @@ pipeline {
                 sh 'nohup node app.js > app.log 2>&1 &'
             }
         }
+        stage('Run App') {
+	    steps {
+		sh '''
+		# Stop any old Node process
+		pkill -f "node app.js" || true
+
+		# Start new Node process in background
+		nohup node app.js > app.log 2>&1 &
+		sleep 3
+
+		# Show if it’s running
+		ps aux | grep node
+		netstat -tulnp | grep 3000 || true
+		'''
+	    }
+	}
+
     }
 
     post {
